@@ -3,28 +3,25 @@ const router = express.Router();
 const { auth } = require("../middleware/auth");
 const multer = require("multer");
 const { ManProduct, WomanProduct, KidProduct } = require("../models/Product");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "backend/uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${Date.now()}_${file.originalname}`);
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "some-folder-name",
+    format: async (req, file) => "png",
+    public_id: (req, file) => "computed-filename-using-request",
   },
 });
 
-var upload = multer({ storage: storage }).single("file");
+const parser = multer({ storage: storage });
 
-router.post("/uploadImage", auth, (req, res) => {
-  upload(req, res, (err) => {
-    if (err) {
-      return res.json({ fileUploadSuccess: false, err });
-    }
-    return res.json({
-      fileUploadSuccess: true,
-      filePath: res.req.file.path,
-      fillName: res.req.file.filename,
-    });
+router.post("/uploadImage", parser.single("image"), function (req, res) {
+  return res.json({
+    fileUploadSuccess: true,
+    filePath: req.file.path,
+    fillName: req.file.filename,
   });
 });
 

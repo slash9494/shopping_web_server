@@ -49,11 +49,7 @@ router.post("/login", (req, res) => {
       user.generateToken((err, user) => {
         if (err) return res.status(400).send(err);
         res
-          .cookie("user_auth", user.token, {
-            domain: "https://lyh-shop.vercel.app",
-            path: "/",
-            secure: true,
-          })
+          .cookie("user_auth", user.token)
           .status(200)
           .json({ loginSuccess: true, userId: user._id });
       });

@@ -40,7 +40,7 @@ app.use(cookieParser());
 app.use("/api/users", require("./routes/users"));
 app.use("/api/product", require("./routes/product"));
 
-app.use("/backend/uploads", express.static("backend/uploads"));
+// app.use("/uploads", express.static("uploads"));
 
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
