@@ -49,7 +49,7 @@ router.post("/login", (req, res) => {
       user.generateToken((err, user) => {
         if (err) return res.status(400).send(err);
         res
-          .cookie("user_auth", user.token)
+          .cookie("user_auth", user.token, { sameSite: "none", secure: "auto" })
           .status(200)
           .json({ loginSuccess: true, userId: user._id });
       });
