@@ -2,7 +2,7 @@
 const express = require("express");
 // import {Request,Response,NextFunction} from 'express'
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const config = require("./config/key");
@@ -22,7 +22,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.get("/", (req, res) => {
-  res.send("Hello World!!!");
+  res.send("server connected...");
 });
 app.use(
   cors({
@@ -43,5 +43,5 @@ app.use("/api/product", require("./routes/product"));
 app.use("/backend/uploads", express.static("backend/uploads"));
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`app listening at http://localhost:${port}`);
 });
