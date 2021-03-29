@@ -54,6 +54,7 @@ router.post("/login", (req, res) => {
             secure: true,
             maxAge: 1000 * 60 * 60 * 24 * 1,
             httpOnly: true,
+            domain: ".lyhshop.cf",
           })
           .status(200)
           .json({ loginSuccess: true, userId: user._id });
