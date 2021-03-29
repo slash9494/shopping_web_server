@@ -52,7 +52,7 @@ router.post("/login", (req, res) => {
           .cookie("user_auth", user.token, {
             sameSite: "none",
             secure: true,
-            // maxAge: 1000 * 60 * 60 * 24 * 1,
+            maxAge: 1000 * 60 * 60 * 24 * 1,
             httpOnly: true,
           })
           .status(200)
@@ -302,7 +302,7 @@ router.post("/successBuy", auth, (req, res) => {
               }
             } else if (item.section === "kid") {
               if (item.size === 1) {
-                WomanProduct.update(
+                KidProduct.update(
                   { _id: item.id },
                   {
                     $inc: {
@@ -314,7 +314,7 @@ router.post("/successBuy", auth, (req, res) => {
                   callback
                 );
               } else if (item.size === 2) {
-                WomanProduct.update(
+                KidProduct.update(
                   { _id: item.id },
                   {
                     $inc: {
@@ -326,7 +326,7 @@ router.post("/successBuy", auth, (req, res) => {
                   callback
                 );
               } else {
-                WomanProduct.update(
+                KidProduct.update(
                   { _id: item.id },
                   {
                     $inc: {
