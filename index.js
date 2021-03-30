@@ -1,18 +1,15 @@
-// import * as express from 'express'
 const express = require("express");
-// import {Request,Response,NextFunction} from 'express'
 const app = express();
 const port = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const config = require("./config/key");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const cors = require("cors");
-const uri = process.env.MONGODB_URI;
+const config = require("./config/key");
 
 mongoose
-  .connect(uri, {
+  .connect(config.mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

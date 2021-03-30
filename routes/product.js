@@ -6,22 +6,34 @@ const { ManProduct, WomanProduct, KidProduct } = require("../models/Product");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
+cloudinary.config({
+  cloud_name: "hu9zwthnr",
+  api_key: "937169961519511",
+  api_secret: "pd2M8508FyoH8e9eK_lTotN6OqQ",
+});
+
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "some-folder-name",
+    folder: "LYHShop",
     format: async (req, file) => "png",
-    public_id: (req, file) => "computed-filename-using-request",
+    public_id: (req, file) => `${file.originalname}`,
+    transformation: [{ width: 652, height: 978, crop: "limit" }],
   },
 });
 
-const parser = multer({ storage: storage });
+const parser = multer({ storage: storage }).single("file");
 
-router.post("/uploadImage", parser.single("image"), function (req, res) {
-  return res.json({
-    fileUploadSuccess: true,
-    filePath: req.file.path,
-    fillName: req.file.filename,
+router.post("/uploadImage", (req, res) => {
+  parser(req, res, (err) => {
+    if (err) {
+      return res.json({ fileUploadSuccess: false, err });
+    }
+    return res.json({
+      fileUploadSuccess: true,
+      filePath: res.req.file.path,
+      fillName: res.req.file.filename,
+    });
   });
 });
 
