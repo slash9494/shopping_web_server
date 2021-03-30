@@ -6,12 +6,6 @@ const { ManProduct, WomanProduct, KidProduct } = require("../models/Product");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-cloudinary.config({
-  cloud_name: "hu9zwthnr",
-  api_key: "937169961519511",
-  api_secret: "pd2M8508FyoH8e9eK_lTotN6OqQ",
-});
-
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
