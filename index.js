@@ -7,9 +7,10 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const cors = require("cors");
 const config = require("./config/key");
+const uri = process.env.MONGODB_URI;
 
 mongoose
-  .connect(config.mongoURI, {
+  .connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
